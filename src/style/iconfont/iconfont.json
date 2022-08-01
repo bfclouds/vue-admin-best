@@ -1,0 +1,37 @@
+{
+  "id": "3558824",
+  "name": "vue3-admin-best",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1049939",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "2681725",
+      "name": "支付宝支付",
+      "font_class": "alipay",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "4937000",
+      "name": "github-fill",
+      "font_class": "github-fill",
+      "unicode": "e885",
+      "unicode_decimal": 59525
+    },
+    {
+      "icon_id": "4937006",
+      "name": "google-circle-fill",
+      "font_class": "google-circle-fill",
+      "unicode": "e887",
+      "unicode_decimal": 59527
+    }
+  ]
+}
