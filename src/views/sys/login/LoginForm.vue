@@ -30,6 +30,7 @@
         size="large"
         class="w-full"
         type="primary"
+        :loading="loadingState"
         @click="submitForm(formRef)"
       >
         提交
@@ -75,11 +76,21 @@
 <script setup lang="ts">
   import { reactive, computed, ref, unref } from 'vue'
   import type { FormInstance } from 'element-plus'
-  import { useFormRules, useLoginState, LoginStateEnum } from './useLogin'
+  import {
+    useFormRules,
+    useLoginState,
+    LoginStateEnum,
+    useLoadingState,
+  } from './useLogin'
   import LoginFormTitle from './LoginFormTitle.vue'
+  import { useRouter } from 'vue-router'
+
+  const { loadingState, hideLoading, showLoading } = useLoadingState()
+  const router = useRouter()
 
   // form表单数据
   const formRef = ref<FormInstance>()
+  const rememberMe = ref(false)
   const loginForm = reactive({
     email: '',
     password: '',
@@ -87,16 +98,24 @@
   const { getFormRules: rules } = useFormRules()
   async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) return
+    showLoading()
     await formEl.validate((valid, fields) => {
       if (valid) {
         console.log('submit!')
+        if (rememberMe.value) {
+          // 记住密码
+        }
+        // 发起请求
+        setTimeout(() => {
+          hideLoading()
+          router.push('home')
+        }, 1000)
       } else {
         console.log('error submit!', fields)
+        hideLoading()
       }
     })
   }
-
-  const rememberMe = ref(false)
 
   // form表单状态
   const { getLoginState, setLoginState } = useLoginState()

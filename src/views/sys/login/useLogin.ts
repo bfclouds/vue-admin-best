@@ -98,3 +98,21 @@ export function useFormRules(registerForm?: any) {
 function createRule(message: string) {
   return [{ required: true, message, trigger: 'change' }]
 }
+
+// 加载状态
+export function useLoadingState() {
+  const loadingState = ref(false)
+
+  function showLoading() {
+    loadingState.value = true
+  }
+  function hideLoading() {
+    loadingState.value = false
+  }
+
+  return {
+    loadingState,
+    hideLoading,
+    showLoading,
+  }
+}

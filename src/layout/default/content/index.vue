@@ -1,4 +1,6 @@
 <template>
-  <div>12</div>
+  <el-main>
+    <router-view />
+  </el-main>
 </template>
 <script setup lang="ts"></script>
