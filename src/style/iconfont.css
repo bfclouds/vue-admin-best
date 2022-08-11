@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3558824 */
-  src: url('//at.alicdn.com/t/c/font_3558824_hn05bmxxrld.woff2?t=1659924863155') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3558824_hn05bmxxrld.woff?t=1659924863155') format('woff'),
-       url('//at.alicdn.com/t/c/font_3558824_hn05bmxxrld.ttf?t=1659924863155') format('truetype');
+  src: url('./iconfont/iconfont.woff2?t=1660220250584') format('woff2'),
+       url('./iconfont/iconfont.woff?t=1660220250584') format('woff'),
+       url('./iconfont/iconfont.ttf?t=1660220250584') format('truetype');
 }
 
 .iconfont {
@@ -56,3 +56,4 @@
 .icon-google-circle-fill:before {
   content: "\e887";
 }
+
