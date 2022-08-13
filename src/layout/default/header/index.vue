@@ -2,7 +2,7 @@
   <el-header class="best-layout-header">
     <div class="best-nav">
       <div class="left flex items-center">
-        <i class="iconfont icon-zhankai text-2xl"></i>
+        <i class="iconfont icon-zhankai text-2xl cursor-pointer"></i>
       </div>
       <div class="right flex justify-end items-center">
         <div>123</div>

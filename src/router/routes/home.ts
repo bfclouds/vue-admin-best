@@ -5,17 +5,21 @@ const homeRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: LayoutComp,
-    redirect: '/darshboard',
+    redirect: '/home/darshboard',
     children: [
       {
-        path: '/darshboard',
-        name: 'darshboard',
-        component: () => import('@/views/home/darshboard/DarshBoard.vue'),
+        path: '/home',
+        redirect: '/home/darshboard',
       },
       {
-        path: '/super-form',
+        path: '/home/darshboard',
+        name: 'darshboard',
+        component: () => import('@/views/home/darshboard/index.vue'),
+      },
+      {
+        path: '/home/super-form',
         name: 'superForm',
-        component: () => import('@/views/home/superForm/SuperForm.vue'),
+        component: () => import('@/views/home/superForm/index.vue'),
       },
     ],
   },

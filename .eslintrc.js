@@ -19,5 +19,6 @@ module.exports = {
     quotes: ['error', 'single'],
     'no-empty-function': 'off',
     '@typescript-eslint/no-empty-function': ['error'],
+    '@typescript-eslint/ban-types': 'off',
   },
 }
