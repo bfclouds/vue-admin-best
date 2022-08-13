@@ -1,4 +1,4 @@
-import { Mock } from 'mockjs'
+import Mock from 'mockjs'
 
 const homeRoute = {
   path: '/',
@@ -22,3 +22,7 @@ const homeRoute = {
     },
   ],
 }
+
+Mock.Mock('/getMenuList', (req, res) => {
+  return {}
+})
