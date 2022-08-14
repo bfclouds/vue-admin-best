@@ -51,17 +51,12 @@ const setRoute = {
   ],
 }
 
-console.log('mockjs2')
+Mock.setup({
+  timeout: '1000-3000',
+})
 
-// Mock.mock('/getMenuList', () => {
-//   console.log(1)
-
-//   const menu: Object[] = [homeRoute]
-//   return resultSuccess(menu)
-// })
-
-Mock.mock('/getMenuList', 'get', (params: any) => {
-  console.log(params)
+Mock.mock('/api/getMenuList', 'get', (params: any) => {
+  console.log('parans:>>>>>', params)
   const menu: Object[] = [homeRoute]
   return resultSuccess(menu)
 })
