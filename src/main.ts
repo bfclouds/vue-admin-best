@@ -7,6 +7,7 @@ import '@/style/index.less'
 import './assets/tailwind.css'
 import 'element-plus/dist/index.css'
 import '@/style/design/index.less'
+import '../mock/index'
 
 const app = createApp(App)
 

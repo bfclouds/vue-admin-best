@@ -1,7 +1,7 @@
 import { resolveComponent, h } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import signRoutes from './routes/sign'
-import homeRoutes from './routes/home'
+import baseRoutes from './routes'
+import { usePermissionStoreWithOut } from '@/store/modules/permission'
 
 const RouteView = {
   render: () => h(resolveComponent('router-view')),
@@ -9,7 +9,15 @@ const RouteView = {
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [...signRoutes, ...homeRoutes],
+  routes: [...baseRoutes],
 })
+
+const permissionStore = usePermissionStoreWithOut()
+
+async function getAsyncMenus() {
+  const menu = await permissionStore.buildRoutesAction()
+  console.log(menu)
+}
+getAsyncMenus()
 
 export default router

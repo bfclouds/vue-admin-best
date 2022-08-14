@@ -4,6 +4,6 @@ enum Api {
   GetMenuList = '/getMenuList',
 }
 
-export const getMeumList = () => {
-  defHttp.get({ url: Api.GetMenuList })
+export const getMenuList = () => {
+  return defHttp.get({ url: Api.GetMenuList })
 }
