@@ -15,25 +15,19 @@
       </a>
     </div>
     <el-tabs tab-position="left">
-      <el-tab-pane>
+      <el-tab-pane v-for="route in menuList" :key="route.name">
         <template #label>
-          <div class="best-column-grid flex-col rounded-md">
-            <div>
-              <i class="iconfont icon-home text-lg leading-none"></i>
-              <p class="mt-1">首页</p>
+          <router-link :to="route.path">
+            <div class="best-column-grid flex-col rounded-md">
+              <div>
+                <i
+                  class="iconfont text-lg leading-none"
+                  :class="route.icon"
+                ></i>
+                <p class="mt-1">{{ route.name }}</p>
+              </div>
             </div>
-          </div>
-        </template>
-      </el-tab-pane>
-
-      <el-tab-pane>
-        <template #label>
-          <div class="best-column-grid flex-col rounded-md">
-            <div>
-              <i class="iconfont icon-setting text-lg leading-none"></i>
-              <p class="mt-1">设置</p>
-            </div>
-          </div>
+          </router-link>
         </template>
       </el-tab-pane>
     </el-tabs>
@@ -57,6 +51,9 @@
 </template>
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { useMenus } from '.'
+
+  const { menuList } = useMenus()
 
   const isCollapse = ref(false)
   function handleOpen() {

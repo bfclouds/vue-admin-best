@@ -1,5 +1,5 @@
 import { RequestOptions } from '@/style/axios'
-import { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   requestOptions?: RequestOptions
@@ -7,6 +7,10 @@ export interface CreateAxiosOptions extends AxiosRequestConfig {
 }
 
 export abstract class AxiosTransform {
+  transformResponseHook?: (
+    response: AxiosResponse,
+    options: RequestOptions
+  ) => any
   beforeRequestHook?: (
     config: AxiosRequestConfig,
     options: RequestOptions

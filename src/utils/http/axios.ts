@@ -38,7 +38,7 @@ class BAxios {
     const opt: RequestOptions = Object.assign({}, requestOptions, options)
 
     const transform = this.getTransform()
-    const { beforeRequestHook } = transform || {}
+    const { beforeRequestHook, transformResponseHook } = transform || {}
     if (beforeRequestHook && isFunction(beforeRequestHook)) {
       conf = beforeRequestHook(conf, opt)
     }
@@ -48,7 +48,10 @@ class BAxios {
       this.axiosInstance
         .request(conf)
         .then((res) => {
-          resolve(res)
+          if (isFunction(transformResponseHook)) {
+            const ret = transformResponseHook(res, opt)
+            resolve(ret)
+          }
         })
         .catch((err) => {
           reject(err)

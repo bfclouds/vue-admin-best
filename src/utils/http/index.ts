@@ -1,10 +1,36 @@
 import BAxios from './axios'
 import { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
 import { deepMerge } from '@/utils'
-import { ContentTypeEnum } from '@/enums/httpEnum'
+import { ContentTypeEnum, ResultEnum } from '@/enums/httpEnum'
 import { clone } from 'lodash-es'
+import { AxiosResponse } from 'axios'
 
 const transform: AxiosTransform = {
+  // 处理响应数据
+  transformResponseHook: (response: AxiosResponse, options) => {
+    const { isTransformResponse, isReturnNativeResponse } = options
+    // 是否返回原生头，在需要获取相应头时设置
+    if (isReturnNativeResponse) {
+      return response
+    }
+    // 不处理，直接返回data
+    if (isTransformResponse) {
+      return response.data
+    }
+
+    // 处理data
+    const {
+      data: { code, message, result, type },
+    } = response
+    if (code === ResultEnum.SUCCESS) {
+      return result
+    } else if (code === ResultEnum.ERROR) {
+      console.log('error', message)
+    }
+
+    return response
+  },
+  // 处理请求前参数
   beforeRequestHook: (config, options) => {
     const { joinPrefix, urlPrefix } = options
     if (joinPrefix) {

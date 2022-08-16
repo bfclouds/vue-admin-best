@@ -4,9 +4,9 @@ import { resultSuccess } from '../_util'
 const homeRoute = {
   path: '/',
   component: 'LAYOUT',
-  redirect: '/home/darshboard',
+  redirect: '/home',
   meta: {
-    title: 'routes.dashboard.dashboard',
+    title: '首页',
     hideChildrenInMenu: true,
     icon: 'icon-home',
   },
@@ -14,16 +14,18 @@ const homeRoute = {
     {
       path: 'home',
       name: 'Home',
-      component: '/home/darshboard',
+      component: '/home/darshboard/index',
       meta: {
+        title: '首页',
         icon: 'icon-home',
       },
     },
     {
       path: 'home/darshboard',
       name: 'Darshboard',
-      component: '/home/darshboard',
+      component: '/home/darshboard/index',
       meta: {
+        title: 'darshboard',
         icon: 'icon-home',
       },
     },
@@ -33,18 +35,28 @@ const homeRoute = {
 const setRoute = {
   path: '/set',
   component: 'LAYOUT',
-  redirect: '/set/index',
+  redirect: '/set/user-center',
   meta: {
-    title: 'routes.dashboard.dashboard',
+    title: '设置',
     hideChildrenInMenu: true,
     icon: 'icon-setting',
   },
   children: [
     {
-      path: 'index',
-      name: 'SetIndex',
-      component: '/home/darshboard',
+      path: 'user-center',
+      name: 'UserCenter',
+      component: '/set/userCenter/index',
       meta: {
+        title: '用户中心',
+        icon: 'icon-home',
+      },
+    },
+    {
+      path: 'user-manage',
+      name: 'UserManage',
+      component: '/set/userManage/index',
+      meta: {
+        title: '用户管理',
         icon: 'icon-home',
       },
     },
@@ -52,11 +64,11 @@ const setRoute = {
 }
 
 Mock.setup({
-  timeout: '1000-3000',
+  timeout: '200',
 })
 
 Mock.mock('/api/getMenuList', 'get', (params: any) => {
   console.log('parans:>>>>>', params)
-  const menu: Object[] = [homeRoute]
+  const menu: Object[] = [homeRoute, setRoute]
   return resultSuccess(menu)
 })

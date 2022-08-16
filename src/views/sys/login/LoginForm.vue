@@ -101,7 +101,6 @@
     showLoading()
     await formEl.validate((valid, fields) => {
       if (valid) {
-        console.log('submit!')
         if (rememberMe.value) {
           // 记住密码
         }
