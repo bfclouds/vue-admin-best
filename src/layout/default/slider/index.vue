@@ -1,7 +1,7 @@
 <template>
   <el-aside
-    width="300px"
-    class="relative overflow-hidden best-slider-bar-container"
+    :width="getMixSideWidth"
+    class="relative overflow-hidden best-slider-bar-container no-scrollbar"
   >
     <!-- <el-scrollbar :noresize="true"> -->
     <div class="header-logo-wrapper">
@@ -14,8 +14,12 @@
         <p class="title text-2xl w-full text-center">vue admin best</p>
       </a>
     </div>
-    <el-tabs tab-position="left">
-      <el-tab-pane v-for="route in menuList" :key="route.name">
+    <el-tabs tab-position="left" :model-value="activeRoute[0]">
+      <el-tab-pane
+        v-for="route in menuList"
+        :key="route.name"
+        :name="route.path"
+      >
         <template #label>
           <router-link :to="route.path">
             <div class="best-column-grid flex-col rounded-md">
@@ -31,37 +35,36 @@
         </template>
       </el-tab-pane>
     </el-tabs>
-    <el-menu default-active="1" class="best-menu">
-      <el-divider>首页</el-divider>
-      <el-menu-item index="1" class="mr-2 ml-2 rounded-md">
-        <div class="p-1">
-          <i class="iconfont icon-home"></i>
-          <span>首页</span>
-        </div>
-      </el-menu-item>
-      <el-menu-item index="2" class="mr-2 ml-2 rounded-md">
-        <div class="p-1">
-          <i class="iconfont icon-pie-chart"></i>
-          <span>看板</span>
-        </div>
+    <el-menu :default-active="activeRoute[1]" class="best-menu">
+      <el-divider>{{ activeRouteName }}</el-divider>
+
+      <el-menu-item
+        class="mr-2 ml-2 rounded-md"
+        v-for="item in subMenuList"
+        :key="item.path"
+        :index="item.path"
+      >
+        <router-link :to="item.path">
+          <div class="p-1">
+            <i class="iconfont" :class="item.icon"></i>
+            <span>{{ item.name }}</span>
+          </div>
+        </router-link>
       </el-menu-item>
     </el-menu>
     <!-- </el-scrollbar> -->
   </el-aside>
 </template>
 <script setup lang="ts">
-  import { ref } from 'vue'
   import { useMenus } from '.'
 
-  const { menuList } = useMenus()
-
-  const isCollapse = ref(false)
-  function handleOpen() {
-    console.log(1)
-  }
-  function handleClose() {
-    console.log(1)
-  }
+  const {
+    menuList,
+    subMenuList,
+    activeRouteName,
+    getMixSideWidth,
+    activeRoute,
+  } = useMenus()
 </script>
 
 <style lang="less" scoped>
@@ -70,6 +73,14 @@
   @elTabwidth: 64px;
   @sliderWidth: 300px;
   @bgColor: #282c34;
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
   .best-slider-bar-container {
     box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
     background-color: var(--el-color-white);

@@ -1,4 +1,4 @@
-import { treeMap } from '@/utils/helper/treeHelper'
+import { findPath, treeMap } from '@/utils/helper/treeHelper'
 import { isUrl } from '@/utils/is'
 import { AppRouteModule, Menu } from '../types'
 
@@ -19,14 +19,19 @@ export function transformRouteToMenu(routeList: AppRouteModule[]): Menu[] {
   })
 
   joinParentPath(MenuList)
+  console.log('MenuList: >>', MenuList)
+
   return MenuList
 }
 
 function joinParentPath(routeList: Menu[], parentPath = ''): Menu[] {
   routeList.forEach((menu) => {
     // || isUrl(menu.path)
-    if (!menu.path.startsWith('/')) {
-      menu.path = `${parentPath}/${menu.path}`
+    if (parentPath.endsWith('/')) {
+      parentPath = parentPath.slice(0, -1)
+    }
+    if (!menu.path.startsWith('/') && !isUrl(menu.path)) {
+      menu.path = `${parentPath === '/' ? '' : parentPath}/${menu.path}`
     }
 
     if (menu?.children?.length) {
@@ -35,4 +40,9 @@ function joinParentPath(routeList: Menu[], parentPath = ''): Menu[] {
   })
 
   return routeList
+}
+
+export function getAllParentPath(menuList: Menu[], path: string): string[] {
+  const mList = findPath(menuList, (n) => n.path === path)
+  return (mList || []).map((item) => item.path)
 }

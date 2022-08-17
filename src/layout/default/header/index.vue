@@ -2,7 +2,11 @@
   <el-header class="best-layout-header">
     <div class="best-nav">
       <div class="left flex items-center">
-        <i class="iconfont icon-zhankai text-2xl cursor-pointer"></i>
+        <i
+          class="iconfont icon-zhankai text-2xl cursor-pointer"
+          :class="{ 'rotate-180': !isHidedMenu }"
+          @click="toggleHideMenu"
+        ></i>
       </div>
       <div class="right flex justify-end items-center">
         <div>123</div>
@@ -29,6 +33,9 @@
 </template>
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { useHeader } from './index'
+
+  const { toggleHideMenu, isHidedMenu } = useHeader()
 
   let tabIndex = 2
   const editableTabsValue = ref('2')
