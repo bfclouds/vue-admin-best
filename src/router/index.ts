@@ -12,14 +12,6 @@ export const router = createRouter({
   routes: [...baseRoutes],
 })
 
-// const permissionStore = usePermissionStoreWithOut()
-
-// async function getAsyncMenus() {
-//   const menu = await permissionStore.buildRoutesAction()
-//   console.log(menu)
-// }
-// getAsyncMenus()
-
 export function setupRouter(app: App<Element>) {
   app.use(router)
 }

@@ -16,7 +16,6 @@ export function getMenus() {
 export async function getCurrentAllParentPath(currentPath: string) {
   const menus = await getAsyncMenus()
   const allParentPath = await getAllParentPath(menus, currentPath)
-  console.log(allParentPath)
   return allParentPath
 }
 

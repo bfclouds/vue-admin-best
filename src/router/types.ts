@@ -12,6 +12,7 @@ export interface Menu {
   icon?: string
   children?: Menu[]
   meta?: Partial<RouteMeta>
+  // redirect?: string
 }
 
 export interface AppRouteRecordRaw
@@ -21,6 +22,7 @@ export interface AppRouteRecordRaw
   component?: Component | string
   fullPath?: string
   children?: AppRouteRecordRaw[]
+  // redirect?: string
 }
 
 export type AppRouteModule = AppRouteRecordRaw

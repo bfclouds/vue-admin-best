@@ -110,7 +110,6 @@
           router.push('home')
         }, 1000)
       } else {
-        console.log('error submit!', fields)
         hideLoading()
       }
     })

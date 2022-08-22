@@ -14,7 +14,7 @@ const homeRoute = {
     {
       path: 'home',
       name: 'Home',
-      component: '/home/darshboard/index',
+      component: '/home/home/index',
       meta: {
         title: '首页',
         icon: 'icon-home',

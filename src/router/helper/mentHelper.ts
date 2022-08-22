@@ -2,7 +2,7 @@ import { findPath, treeMap } from '@/utils/helper/treeHelper'
 import { isUrl } from '@/utils/is'
 import { AppRouteModule, Menu } from '../types'
 
-export function transformRouteToMenu(routeList: AppRouteModule[]): Menu[] {
+export function transformRouteToMenu(routeList: Menu[], routerMapping = false) {
   const MenuList = treeMap(routeList, {
     conversion(route: AppRouteModule) {
       const { meta: { title, hideMenu = false } = {} } = route
@@ -17,10 +17,7 @@ export function transformRouteToMenu(routeList: AppRouteModule[]): Menu[] {
       }
     },
   })
-
   joinParentPath(MenuList)
-  console.log('MenuList: >>', MenuList)
-
   return MenuList
 }
 

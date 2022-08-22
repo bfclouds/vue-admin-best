@@ -11,7 +11,7 @@ import {
   SIDE_BAR_MINI_WIDTH,
   SIDE_BAR_SHOW_TIT_MINI_WIDTH,
 } from '@/enums/appEnum'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const menuList = ref<Menu[]>([])
 const activeRoute = ref<string[]>([])
@@ -20,7 +20,6 @@ export function useMenus() {
   const permissionStore = usePermissionStore()
   const appStore = useAppStore()
   const route = useRoute()
-  const router = useRouter()
 
   // menu
   const isHideMenu = computed(() => appStore.getFullContent)
@@ -36,6 +35,7 @@ export function useMenus() {
   async function genMenus() {
     const menus = await getMenus()
     menuList.value = menus
+    console.log('menuList >>> ', menuList.value)
   }
 
   // subMenu
@@ -52,7 +52,6 @@ export function useMenus() {
   onMounted(async () => {
     menuList.value = getShallowMenus()
     activeRoute.value = await getCurrentAllParentPath(route.path)
-    console.log(activeRoute.value)
   })
 
   watch(

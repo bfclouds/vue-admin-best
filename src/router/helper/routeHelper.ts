@@ -45,8 +45,6 @@ export function transformObjToRoute<T = AppRouteModule>(
 
     route.children && asyncImportRoute(route.children)
   })
-  console.log('routeList: >>>', routeList)
-
   return routeList as unknown as T[]
 }
 

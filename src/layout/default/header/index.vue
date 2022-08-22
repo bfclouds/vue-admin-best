@@ -14,17 +14,11 @@
       </div>
     </div>
     <div class="best-tabs">
-      <el-tabs
-        v-model="editableTabsValue"
-        type="card"
-        editable
-        class="demo-tabs"
-        @edit="handleTabsEdit"
-      >
+      <el-tabs type="card" closable class="demo-tabs" @edit="handleTabsEdit">
         <el-tab-pane
-          v-for="item in editableTabs"
+          v-for="item in tabList"
           :key="item.name"
-          :label="item.title"
+          :label="item.name"
           :name="item.name"
         ></el-tab-pane>
       </el-tabs>
@@ -32,28 +26,20 @@
   </el-header>
 </template>
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import { useHeader } from './index'
+  import { ref, unref } from 'vue'
+  import { useTabs } from '@/hooks/web/useTabs'
+  import { listenerRouteChange } from '@/logics/mitt/routeChange'
 
-  const { toggleHideMenu, isHidedMenu } = useHeader()
+  const { isHidedMenu, tabList, toggleHideMenu, addTab } = useTabs()
 
-  let tabIndex = 2
-  const editableTabsValue = ref('2')
-  const editableTabs = ref([
-    {
-      title: 'Tab 1',
-      name: '1',
-      content: 'Tab 1 content',
-    },
-    {
-      title: 'Tab 2',
-      name: '2',
-      content: 'Tab 2 content',
-    },
-  ])
   function handleTabsEdit() {
     console.log(1)
   }
+
+  listenerRouteChange((route) => {
+    console.log(1, route)
+    addTab(unref(route))
+  })
 </script>
 
 <style lang="less" scoped>
