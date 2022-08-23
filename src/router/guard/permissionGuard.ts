@@ -8,6 +8,7 @@ export async function createPermissionGuard(router: Router) {
   const permissionStore = usePermissionStoreWithOut()
 
   router.beforeEach(async (to, form, next) => {
+    // 路由加载
     if (permissionStore.getIsDynamicAddedRoute) {
       next()
       return

@@ -4,7 +4,7 @@ import { resultSuccess } from '../_util'
 const homeRoute = {
   path: '/',
   component: 'LAYOUT',
-  redirect: '/home',
+  redirect: 'home',
   meta: {
     title: '首页',
     hideChildrenInMenu: true,
@@ -12,7 +12,7 @@ const homeRoute = {
   },
   children: [
     {
-      path: 'home',
+      path: '/home',
       name: 'Home',
       component: '/home/home/index',
       meta: {
@@ -68,7 +68,6 @@ Mock.setup({
 })
 
 Mock.mock('/api/getMenuList', 'get', (params: any) => {
-  console.log('parans:>>>>>', params)
   const menu: Object[] = [homeRoute, setRoute]
   return resultSuccess(menu)
 })

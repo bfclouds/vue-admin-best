@@ -1,12 +1,7 @@
 import { useAppStore } from '@/store/modules/app'
 import { computed, unref } from 'vue'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
-import {
-  RouteLocationNormalized,
-  RouteLocationRaw,
-  RouteRecordName,
-  useRouter,
-} from 'vue-router'
+import { RouteLocationNormalized, useRouter } from 'vue-router'
 
 export function useTabs() {
   const appStore = useAppStore()

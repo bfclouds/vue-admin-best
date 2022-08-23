@@ -44,7 +44,6 @@
   }
 
   listenerRouteChange((route) => {
-    console.log(1, route)
     addTab(unref(route))
   })
 </script>

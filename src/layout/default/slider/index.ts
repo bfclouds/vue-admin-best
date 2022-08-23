@@ -1,17 +1,17 @@
+import { Menu } from '@/router/types'
+import usePermissionStore from '@/store/modules/permission'
+import { useAppStore } from '@/store/modules/app'
+import { computed, onMounted, ref, unref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import {
   getCurrentAllParentPath,
   getMenus,
   getShallowMenus,
 } from '@/router/menus'
-import { Menu } from '@/router/types'
-import usePermissionStore from '@/store/modules/permission'
-import { useAppStore } from '@/store/modules/app'
-import { computed, onMounted, ref, unref, watch } from 'vue'
 import {
   SIDE_BAR_MINI_WIDTH,
   SIDE_BAR_SHOW_TIT_MINI_WIDTH,
 } from '@/enums/appEnum'
-import { useRoute } from 'vue-router'
 
 const menuList = ref<Menu[]>([])
 const activeRoute = ref<string[]>([])

@@ -14,8 +14,6 @@ function createPageGuard(router: Router) {
   const loadedPageMap = new Map<string, boolean>()
   router.beforeEach((to) => {
     to.meta.loaded = !!loadedPageMap.get(to.path)
-    console.log('to.path  :', to.path)
-
     setRouteChange(to)
     return true
   })

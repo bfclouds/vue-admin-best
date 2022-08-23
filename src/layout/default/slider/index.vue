@@ -38,19 +38,16 @@
     <el-menu :default-active="activeRoute[1]" class="best-menu">
       <el-divider>{{ activeRouteName }}</el-divider>
 
-      <el-menu-item
-        class="mr-2 ml-2 rounded-md"
-        v-for="item in subMenuList"
-        :key="item.path"
-        :index="item.path"
-      >
+      <template v-for="item in subMenuList" :key="item.path">
         <router-link :to="item.path">
-          <div class="p-1">
-            <i class="iconfont" :class="item.icon"></i>
-            <span>{{ item.name }}</span>
-          </div>
+          <el-menu-item class="mr-2 ml-2 rounded-md" :index="item.path">
+            <div class="p-1">
+              <i class="iconfont" :class="item.icon"></i>
+              <span>{{ item.name }}</span>
+            </div>
+          </el-menu-item>
         </router-link>
-      </el-menu-item>
+      </template>
     </el-menu>
     <!-- </el-scrollbar> -->
   </el-aside>
