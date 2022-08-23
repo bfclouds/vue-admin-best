@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6195943",
+      "name": "iframe添加",
+      "font_class": "iframetianjia",
+      "unicode": "ec7d",
+      "unicode_decimal": 60541
+    },
+    {
+      "icon_id": "8530455",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "8605760",
+      "name": "用户管理",
+      "font_class": "yonghuguanli",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "12696079",
+      "name": "用户中心",
+      "font_class": "icon-user-light",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "7606204",
+      "name": "数据可视化",
+      "font_class": "shujukeshihua",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "29522715",
+      "name": "24A配置",
+      "font_class": "a-24Apeizhi",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
       "icon_id": "2571131",
       "name": "工具",
       "font_class": "gongju",

@@ -26,7 +26,7 @@ const homeRoute = {
       component: '/home/darshboard/index',
       meta: {
         title: 'darshboard',
-        icon: 'icon-home',
+        icon: 'icon-pie-chart',
       },
     },
   ],
@@ -35,29 +35,72 @@ const homeRoute = {
 const setRoute = {
   path: '/set',
   component: 'LAYOUT',
-  redirect: '/set/user-center',
+  // redirect: '/set/user-center',
   meta: {
     title: '设置',
     hideChildrenInMenu: true,
-    icon: 'icon-setting',
+    icon: 'icon-icon-user-light',
+  },
+  children: [],
+}
+
+const userRoute = {
+  path: '/user',
+  component: 'LAYOUT',
+  redirect: '/user/user-center',
+  meta: {
+    title: '用户',
+    hideChildrenInMenu: true,
+    icon: 'icon-icon-user-light',
   },
   children: [
     {
       path: 'user-center',
       name: 'UserCenter',
-      component: '/set/userCenter/index',
+      component: '/user/userCenter/index',
       meta: {
         title: '用户中心',
-        icon: 'icon-home',
+        icon: 'icon-icon-user-light',
       },
     },
     {
       path: 'user-manage',
       name: 'UserManage',
-      component: '/set/userManage/index',
+      component: '/user/userManage/index',
       meta: {
         title: '用户管理',
-        icon: 'icon-home',
+        icon: 'icon-yonghuguanli',
+      },
+    },
+  ],
+}
+
+const lowCodeRoute = {
+  path: '/low-code',
+  component: 'LAYOUT',
+  redirect: '/low-code/template',
+  meta: {
+    title: '低代码',
+    hideChildrenInMenu: true,
+    icon: 'icon-a-24Apeizhi',
+  },
+  children: [
+    {
+      path: 'template',
+      name: 'LowCodeTemplate',
+      component: '/lowCode/template/index',
+      meta: {
+        title: '模版',
+        icon: 'icon-a-24Apeizhi',
+      },
+    },
+    {
+      path: 'add',
+      name: 'LowCodeAdd',
+      component: '/lowCode/add/index',
+      meta: {
+        title: '添加',
+        icon: 'icon-a-24Apeizhi',
       },
     },
   ],
@@ -68,6 +111,6 @@ Mock.setup({
 })
 
 Mock.mock('/api/getMenuList', 'get', (params: any) => {
-  const menu: Object[] = [homeRoute, setRoute]
+  const menu: Object[] = [homeRoute, userRoute, lowCodeRoute]
   return resultSuccess(menu)
 })
