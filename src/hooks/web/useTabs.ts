@@ -17,8 +17,12 @@ export function useTabs() {
     if (!route) {
       return
     }
-
     tabStore.addTab(route)
+  }
+
+  function closeTab(fullPath: string) {
+    if (!fullPath) return
+    tabStore.closeTab(fullPath, router)
   }
 
   function getCurrentTab() {
@@ -27,18 +31,9 @@ export function useTabs() {
   }
 
   const currentIndex = computed({
-    get: () => {
-      const r = tabList.value.find(
-        (item) => item.fullPath === getCurrentTab()?.fullPath
-      )
-      return r?.name || ''
-    },
-    set: (name) => {
-      // const r = tabList.value[]
-      console.log(name)
-      const r = tabList.value.find((item) => item.name === name)
-      r?.path && router.push(r?.path)
-      // router.push(name as RouteLocationRaw)
+    get: () => getCurrentTab()?.fullPath,
+    set: (fullPath = '') => {
+      router.push(fullPath)
     },
   })
 
@@ -53,5 +48,6 @@ export function useTabs() {
     getCurrentTab,
     currentIndex,
     addTab,
+    closeTab,
   }
 }

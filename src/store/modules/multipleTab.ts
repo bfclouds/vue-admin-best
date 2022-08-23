@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { toRaw } from 'vue'
-import { RouteLocationNormalized } from 'vue-router'
+import { toRaw, unref } from 'vue'
+import { RouteLocationNormalized, Router } from 'vue-router'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>
@@ -62,6 +62,32 @@ export const useMultipleTabStore = defineStore({
         }
         this.tabList.push(route)
       }
+    },
+    closeTab(fullPath: string, router: Router) {
+      if (this.tabList.length <= 1) return
+      const close = () => {
+        const index = this.tabList.findIndex(
+          (item) => item.fullPath === fullPath
+        )
+        this.tabList.splice(index, 1)
+      }
+
+      const { currentRoute, replace } = router
+      const { fullPath: curFullPath } = unref(currentRoute)
+      if (curFullPath !== fullPath) {
+        close()
+        return
+      }
+
+      const index = this.tabList.findIndex((item) => item.fullPath === fullPath)
+      let newTab
+      if (index === 0) {
+        newTab = this.tabList[index + 1]
+      } else {
+        newTab = this.tabList[index - 1]
+      }
+      close()
+      replace(newTab.path)
     },
   },
 })

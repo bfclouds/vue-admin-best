@@ -19,13 +19,13 @@
         closable
         class="demo-tabs"
         v-model="currentIndex"
-        @edit="handleTabsEdit"
+        @edit="closeTab"
       >
         <el-tab-pane
           v-for="item in tabList"
-          :key="item.name"
+          :key="item.fullPath"
           :label="item.meta.title"
-          :name="item.name"
+          :name="item.fullPath"
         ></el-tab-pane>
       </el-tabs>
     </div>
@@ -36,12 +36,14 @@
   import { useTabs } from '@/hooks/web/useTabs'
   import { listenerRouteChange } from '@/logics/mitt/routeChange'
 
-  const { isHidedMenu, tabList, toggleHideMenu, addTab, currentIndex } =
-    useTabs()
-
-  function handleTabsEdit() {
-    console.log(1)
-  }
+  const {
+    isHidedMenu,
+    tabList,
+    toggleHideMenu,
+    addTab,
+    currentIndex,
+    closeTab,
+  } = useTabs()
 
   listenerRouteChange((route) => {
     addTab(unref(route))
