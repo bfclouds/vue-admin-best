@@ -35,7 +35,6 @@ export function useMenus() {
   async function genMenus() {
     const menus = await getMenus()
     menuList.value = menus
-    console.log('menuList >>> ', menuList.value)
   }
 
   // subMenu

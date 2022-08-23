@@ -14,11 +14,17 @@
       </div>
     </div>
     <div class="best-tabs">
-      <el-tabs type="card" closable class="demo-tabs" @edit="handleTabsEdit">
+      <el-tabs
+        type="card"
+        closable
+        class="demo-tabs"
+        v-model="currentIndex"
+        @edit="handleTabsEdit"
+      >
         <el-tab-pane
           v-for="item in tabList"
           :key="item.name"
-          :label="item.name"
+          :label="item.meta.title"
           :name="item.name"
         ></el-tab-pane>
       </el-tabs>
@@ -26,11 +32,12 @@
   </el-header>
 </template>
 <script setup lang="ts">
-  import { ref, unref } from 'vue'
+  import { unref } from 'vue'
   import { useTabs } from '@/hooks/web/useTabs'
   import { listenerRouteChange } from '@/logics/mitt/routeChange'
 
-  const { isHidedMenu, tabList, toggleHideMenu, addTab } = useTabs()
+  const { isHidedMenu, tabList, toggleHideMenu, addTab, currentIndex } =
+    useTabs()
 
   function handleTabsEdit() {
     console.log(1)
