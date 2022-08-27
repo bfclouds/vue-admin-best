@@ -3,7 +3,6 @@
     :width="getMixSideWidth"
     class="relative overflow-hidden best-slider-bar-container no-scrollbar"
   >
-    <!-- <el-scrollbar :noresize="true"> -->
     <div class="header-logo-wrapper">
       <a href="/" class="inline-flex items-center w-full">
         <span
@@ -35,21 +34,46 @@
         </template>
       </el-tab-pane>
     </el-tabs>
-    <el-menu :default-active="activeRoute[1]" class="best-menu">
+    <el-menu
+      :default-active="activeRoute.at(-1)"
+      :default-openeds="openedMenus"
+      class="best-menu"
+      router
+    >
       <el-divider>{{ activeRouteName }}</el-divider>
 
       <template v-for="item in subMenuList" :key="item.path">
-        <router-link :to="item.path">
+        <template v-if="!item.children || item.children.length === 0">
           <el-menu-item class="mr-2 ml-2 rounded-md" :index="item.path">
             <div class="p-1">
               <i class="iconfont" :class="item.icon"></i>
               <span>{{ item.name }}</span>
             </div>
           </el-menu-item>
-        </router-link>
+        </template>
+        <template v-else>
+          <el-sub-menu :index="item.path">
+            <template #title>
+              <div class="p-1">
+                <i class="iconfont" :class="item.icon"></i>
+                <span>{{ item.name }}</span>
+              </div>
+            </template>
+            <el-menu-item
+              v-for="subMenuItem in item.children"
+              :key="subMenuItem.path"
+              class="mr-2 ml-2 mt-2 rounded-md"
+              :index="subMenuItem.path"
+            >
+              <div class="p-1">
+                <i class="iconfont" :class="subMenuItem.icon"></i>
+                <span>{{ subMenuItem.name }}</span>
+              </div>
+            </el-menu-item>
+          </el-sub-menu>
+        </template>
       </template>
     </el-menu>
-    <!-- </el-scrollbar> -->
   </el-aside>
 </template>
 <script setup lang="ts">
@@ -61,6 +85,7 @@
     activeRouteName,
     getMixSideWidth,
     activeRoute,
+    openedMenus,
   } = useMenus()
 </script>
 
