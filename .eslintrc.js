@@ -21,5 +21,6 @@ module.exports = {
     '@typescript-eslint/no-empty-function': ['error'],
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-extra-semi': 'off',
+    'no-undef' : 'off'
   },
 }

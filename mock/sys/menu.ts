@@ -35,41 +35,38 @@ const homeRoute = {
 const setRoute = {
   path: '/set',
   component: 'LAYOUT',
-  // redirect: '/set/user-center',
+  redirect: '/set/user-center',
   meta: {
     title: '设置',
     hideChildrenInMenu: true,
     icon: 'icon-icon-user-light',
   },
-  children: [],
-}
-
-const userRoute = {
-  path: '/user',
-  component: 'LAYOUT',
-  redirect: '/user/user-center',
-  meta: {
-    title: '用户',
-    hideChildrenInMenu: true,
-    icon: 'icon-icon-user-light',
-  },
   children: [
     {
-      path: 'user-center',
-      name: 'UserCenter',
-      component: '/user/userCenter/index',
+      path: 'user-manage',
+      name: 'UserManage',
+      component: '/set/userManage/index',
       meta: {
-        title: '用户中心',
+        title: '用户管理',
         icon: 'icon-icon-user-light',
       },
     },
     {
-      path: 'user-manage',
-      name: 'UserManage',
-      component: '/user/userManage/index',
+      path: 'role-manage',
+      name: 'RoleManage',
+      component: '/set/roleManage/index',
       meta: {
-        title: '用户管理',
+        title: '角色管理',
         icon: 'icon-yonghuguanli',
+      },
+    },
+    {
+      path: 'user-center',
+      name: 'UserCenter',
+      component: '/set/userCenter/index',
+      meta: {
+        title: '用户中心',
+        icon: 'icon-icon-user-light',
       },
     },
   ],
@@ -152,6 +149,6 @@ Mock.setup({
 })
 
 Mock.mock('/api/getMenuList', 'get', (params: any) => {
-  const menu: Object[] = [homeRoute, userRoute, lowCodeRoute, animation]
+  const menu: Object[] = [homeRoute, setRoute, lowCodeRoute, animation]
   return resultSuccess(menu)
 })

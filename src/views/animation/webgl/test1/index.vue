@@ -1,4 +1,10 @@
 <template>
-  <div>web gl test</div>
+  <div>
+    <canvas ref="glCanvasRef"></canvas>
+  </div>
 </template>
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const glCanvasRef = ref<Nullable<HTMLElement>>(null)
+</script>

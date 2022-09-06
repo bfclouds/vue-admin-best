@@ -9,7 +9,7 @@
 
 <style lang="less" scoped>
   .best-layout-content {
-    padding: 20px;
+    padding: 16px 16px 0;
     background-color: transparent;
   }
 </style>
