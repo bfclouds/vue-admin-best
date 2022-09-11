@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1138742",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
       "icon_id": "6195943",
       "name": "iframe添加",
       "font_class": "iframetianjia",
