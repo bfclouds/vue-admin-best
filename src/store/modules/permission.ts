@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { AppRouteRecordRaw, Menu } from '@/router/types'
-import { getMenuList } from '@/api/sys/menu'
+import api from '@/api'
 import { store } from '../index'
 import { transformObjToRoute } from '@/router/helper/routeHelper'
 import { transformRouteToMenu } from '@/router/helper/mentHelper'
@@ -49,7 +49,7 @@ const usePermissionStore = defineStore({
       let routes: AppRouteRecordRaw[] = []
 
       // 获取
-      let routeList = (await getMenuList()) as AppRouteRecordRaw[]
+      let routeList = (await api.getMenuList()) as AppRouteRecordRaw[]
       // 转换成route路由
       routeList = transformObjToRoute(routeList)
       // 路由转成menu

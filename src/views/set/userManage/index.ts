@@ -6,19 +6,10 @@ import {
   Message,
   MessageType,
 } from '@/components/dialog/type'
-
-interface User {
-  userName: string
-  password: string
-  email: string
-  role: string[]
-  index?: number
-  id?: number
-  updateAt?: string
-}
-
-// function showTipsToSure(user: User) => {}
-// function showTipsToSure(userList: User[]): => {}
+import api from '@/api'
+import { User } from './type'
+import { ElMessage } from 'element-plus'
+import { jsEncryptData } from '@/utils'
 
 export function useTableData() {
   const tableData = ref<Nullable<User[]>>([
@@ -120,6 +111,15 @@ export function useEditForm(selectedUser: User[]) {
   }
   function formConfirm() {
     formVisible.value = false
+    api
+      .setUser(
+        Object.assign({}, userForm.value, {
+          password: jsEncryptData(userForm.value.password),
+        })
+      )
+      .then((res) => {
+        console.log(res)
+      })
   }
 
   function setUserForm(info = baseUserForm) {
@@ -146,6 +146,11 @@ export function useEditForm(selectedUser: User[]) {
   }
 
   function deleteSelectedUsers() {
+    if (selectedUser.length === 0) {
+      ElMessage.error('没有选择需要删除的用户！')
+      return
+    }
+
     showTipsToSure(selectedUser, {
       type: MessageType.delete,
       txt: '确定要删除该用户吗？',

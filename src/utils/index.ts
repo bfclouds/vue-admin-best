@@ -34,7 +34,8 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDjKi9wwdoIqYBlTH2hXuveumMG
 swhTHhpKnfiH9sigPlBNvzZCWTRfBTFJR9zi2gjsajXXU9vJmHdLLwV51iQBirmX
 aJzgKIdX41kB9FL+mAaNrRtBIFTKYG1hxpD5Day1yhk990XZkwJ063UQ6jrSyCuB
 o5E3cN4hSQqQXWcv0wIDAQAB
------END PUBLIC KEY-----`
+-----END PUBLIC KEY-----
+`
 export function jsEncryptData(val: any) {
   try {
     const data = typeof val === 'string' ? val : JSON.stringify(val)
