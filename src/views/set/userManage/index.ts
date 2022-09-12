@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { onMounted, reactive, ref, unref } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import {
   GDialogType,
@@ -10,74 +10,16 @@ import api from '@/api'
 import { User } from './type'
 import { ElMessage } from 'element-plus'
 import { jsEncryptData } from '@/utils'
+import { Page } from '@/types/config'
 
 export function useTableData() {
-  const tableData = ref<Nullable<User[]>>([
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 1,
-      updateAt: '2022/12/12 12:12',
-    },
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 2,
-      updateAt: '2022/12/12 12:12',
-    },
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 3,
-      updateAt: '2022/12/12 12:12',
-    },
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 4,
-      updateAt: '2022/12/12 12:12',
-    },
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 5,
-      updateAt: '2022/12/12 12:12',
-    },
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 6,
-      updateAt: '2022/12/12 12:12',
-    },
-    {
-      userName: '附小讲',
-      password: 'jfskdjfkldsf',
-      email: '3248293@qq.com',
-      role: ['admin', 'superAdmin'],
-      index: 1,
-      id: 7,
-      updateAt: '2022/12/12 12:12',
-    },
-  ])
+  const tableData = ref<Nullable<User[]>>([])
   const selectedUser = ref<User[]>([])
+  const page: Page = reactive({
+    total: 0,
+    current: 1,
+    size: 7,
+  })
 
   function select(selection: User[]) {
     selectedUser.value = selection
@@ -87,24 +29,60 @@ export function useTableData() {
     selectedUser.value = selection
   }
 
+  function getUserList() {
+    api
+      .getUserList({
+        size: page.size,
+        current: page.current,
+      })
+      .then((res: User[]) => {
+        tableData.value = res
+      })
+  }
+  onMounted(() => {
+    getUserList()
+  })
+
   return {
     tableData,
     select,
     selectAll,
     selectedUser,
+    getUserList,
+    page,
   }
 }
 
-export function useEditForm(selectedUser: User[]) {
+export function useEditForm({
+  selectedUser,
+  getUserList,
+}: {
+  selectedUser: User[]
+  getUserList: () => void
+}) {
   const baseUserForm: User = {
     userName: '',
     password: '',
     email: '',
-    role: [],
+    role: undefined,
   }
   const userForm = ref(cloneDeep(baseUserForm))
   const formVisible = ref(false)
   const sureDialog = ref<Nullable<GDialogType>>(null)
+
+  function setUserForm(info = baseUserForm) {
+    userForm.value = cloneDeep(info)
+  }
+
+  function addUser() {
+    setUserForm()
+    formVisible.value = true
+  }
+
+  function edit(index: string, data: User) {
+    setUserForm(data)
+    formVisible.value = true
+  }
 
   function formCancel() {
     formVisible.value = false
@@ -119,21 +97,8 @@ export function useEditForm(selectedUser: User[]) {
       )
       .then((res) => {
         console.log(res)
+        getUserList()
       })
-  }
-
-  function setUserForm(info = baseUserForm) {
-    userForm.value = cloneDeep(info)
-  }
-
-  function addUser() {
-    setUserForm()
-    formVisible.value = true
-  }
-
-  function edit(index: string, data: User) {
-    setUserForm(data)
-    formVisible.value = true
   }
 
   function deleteUser(data: User) {

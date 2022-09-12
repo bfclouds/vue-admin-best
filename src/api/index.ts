@@ -1,4 +1,4 @@
-import userManageApi from './home/userManage'
+import userManageApi from './set/userManage'
 import menuApi from './sys/menu'
 
 const api = {

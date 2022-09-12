@@ -18,6 +18,8 @@ class BAxios {
   }
 
   get(config: AxiosRequestConfig, options?: RequestOptions) {
+    console.log('params3: ', options)
+
     return this.request({
       ...config,
       method: 'GET',

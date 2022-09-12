@@ -20,12 +20,14 @@ const transform: AxiosTransform = {
 
     // 处理data
     const {
-      data: { code, message, result, type },
+      data: { code, data, msg },
     } = response
+    console.log('res: ', data)
+
     if (code === ResultEnum.SUCCESS) {
-      return result
+      return data
     } else if (code === ResultEnum.ERROR) {
-      console.log('error', message)
+      console.log('error', msg)
     }
 
     return response

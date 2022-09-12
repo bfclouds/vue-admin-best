@@ -2,8 +2,8 @@ export interface User {
   userName: string
   password: string
   email: string
-  role: string[]
+  role?: number
   index?: number
   id?: number
-  updateAt?: string
+  updatedAt?: string
 }

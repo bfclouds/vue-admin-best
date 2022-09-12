@@ -31,7 +31,7 @@
     >
       <el-table-column align="center" type="selection" min-width="40" />
       <el-table-column align="center" label="序号" min-width="60">
-        <template #default="scope">{{ scope.row.index }}</template>
+        <template #default="scope">{{ scope.$index }}</template>
       </el-table-column>
       <el-table-column align="center" property="id" label="id" min-width="60" />
       <el-table-column
@@ -42,7 +42,7 @@
       />
       <el-table-column
         align="center"
-        property="password"
+        property="email"
         label="邮箱"
         min-width="120"
       />
@@ -60,10 +60,14 @@
       </el-table-column>
       <el-table-column
         align="center"
-        property="updateAt"
-        label="提交时间"
+        property="updatedAt"
+        label="更新时间"
         min-width="120"
-      />
+      >
+        <template #default="scope">
+          <span>{{ formatData(scope.row.updatedAt) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         fixed="right"
@@ -92,7 +96,11 @@
     </el-table>
 
     <div class="flex justify-center mt-8">
-      <el-pagination background layout="prev, pager, next" :total="1000" />
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="page.total"
+      />
     </div>
 
     <el-dialog v-model="formVisible" title="添加" width="480px">
@@ -117,11 +125,14 @@
   </ContentWrapper>
 </template>
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, unref } from 'vue'
   import ContentWrapper from '@/components/contentWrapper/index.vue'
   import Dialog from '@/components/dialog/index.vue'
   import { useTableData, useEditForm } from './index'
-  const { tableData, select, selectAll, selectedUser } = useTableData()
+  import { formatData } from '@/utils'
+
+  const { tableData, select, selectAll, selectedUser, getUserList, page } =
+    useTableData()
   const {
     formVisible,
     formCancel,
@@ -132,7 +143,10 @@
     sureDialog,
     deleteUser,
     deleteSelectedUsers,
-  } = useEditForm(selectedUser.value)
+  } = useEditForm({
+    selectedUser: unref(selectedUser),
+    getUserList: unref(getUserList),
+  })
 
   const searchValue = ref('')
   function handleSelectionChange() {

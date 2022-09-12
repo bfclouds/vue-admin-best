@@ -1,6 +1,7 @@
 import { isObject } from '@/utils/is'
 import JSEncrypt from 'jsencrypt'
 import { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
+import dayjs from 'dayjs'
 
 export function deepMerge<T = any>(source: any = {}, target: any = {}): T {
   for (const key in target) {
@@ -45,4 +46,8 @@ export function jsEncryptData(val: any) {
   } catch (err) {
     return val
   }
+}
+
+export function formatData(date: string) {
+  return dayjs(date).format('YYYY/MM/DD HH:mm:ss')
 }

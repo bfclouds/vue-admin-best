@@ -6,7 +6,7 @@ export enum RequestEnum {
 }
 
 export enum ResultEnum {
-  SUCCESS = 0,
+  SUCCESS = 10000,
   ERROR = -1,
   TIMEOUT = 401,
   TYPE = 'success',
