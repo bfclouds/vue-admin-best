@@ -1,4 +1,4 @@
-import { onMounted, reactive, ref, unref } from 'vue'
+import { computed, onMounted, reactive, ref, unref } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import {
   GDialogType,
@@ -16,10 +16,15 @@ export function useTableData() {
   const tableData = ref<Nullable<User[]>>([])
   const selectedUser = ref<User[]>([])
   const page: Page = reactive({
-    total: 0,
-    current: 1,
+    total: 40,
+    current: 0,
     size: 7,
   })
+
+  const searchValue = ref('')
+  const searchMode = ref(false)
+  const searchTableData = ref<Nullable<User[]>>([])
+  const loading = ref(false)
 
   function select(selection: User[]) {
     selectedUser.value = selection
@@ -30,26 +35,74 @@ export function useTableData() {
   }
 
   function getUserList() {
+    if (page.current >= page.total) {
+      return
+    }
+
+    loading.value = false
     api
       .getUserList({
         size: page.size,
-        current: page.current,
+        current: page.current + 1,
       })
-      .then((res: User[]) => {
-        tableData.value = res
+      .then((res) => {
+        const { page: resPage, data } = res
+        page.total = resPage.total
+        page.current = resPage.current
+        tableData.value = data
+      })
+      .finally(() => {
+        loading.value = false
       })
   }
+
+  function changePage() {
+    getUserList()
+  }
+
+  const showTableData = computed(() => {
+    return searchMode.value ? searchTableData.value : tableData.value
+  })
+
+  function onSearchInput(value: string) {
+    if (value === '') {
+      searchMode.value = false
+    }
+  }
+
+  function onSearch() {
+    searchMode.value = true
+    loading.value = true
+    api
+      .searchUser({
+        userName: searchValue.value,
+      })
+      .then((res) => {
+        console.log(res)
+        searchTableData.value = res
+      })
+      .finally(() => {
+        loading.value = false
+      })
+  }
+
   onMounted(() => {
     getUserList()
   })
 
   return {
-    tableData,
+    // tableData,
+    showTableData,
     select,
     selectAll,
     selectedUser,
     getUserList,
     page,
+    changePage,
+    searchValue,
+    onSearch,
+    onSearchInput,
+    loading,
   }
 }
 

@@ -12,9 +12,13 @@
           <el-input
             class="max-w-xs"
             v-model="searchValue"
+            @input="onSearchInput"
+            @keyup.enter="onSearch"
             placeholder="请输入用户名"
           />
-          <el-button type="primary" class="ml-3">搜索</el-button>
+          <el-button type="primary" class="ml-3" @click="onSearch">
+            搜索
+          </el-button>
         </div>
       </el-col>
     </el-row>
@@ -23,10 +27,10 @@
       class="mt-10 w-full text-center"
       ref="multipleTableRef"
       style="height: 328px"
-      :data="tableData"
-      @selection-change="handleSelectionChange"
+      :data="showTableData"
       @select="select"
       @select-all="selectAll"
+      v-loading="loading"
       border
     >
       <el-table-column align="center" type="selection" min-width="40" />
@@ -100,6 +104,7 @@
         background
         layout="prev, pager, next"
         :total="page.total"
+        @current-change="changePage"
       />
     </div>
 
@@ -131,8 +136,19 @@
   import { useTableData, useEditForm } from './index'
   import { formatData } from '@/utils'
 
-  const { tableData, select, selectAll, selectedUser, getUserList, page } =
-    useTableData()
+  const {
+    showTableData,
+    select,
+    selectAll,
+    selectedUser,
+    getUserList,
+    page,
+    changePage,
+    searchValue,
+    onSearch,
+    onSearchInput,
+    loading,
+  } = useTableData()
   const {
     formVisible,
     formCancel,
@@ -147,9 +163,4 @@
     selectedUser: unref(selectedUser),
     getUserList: unref(getUserList),
   })
-
-  const searchValue = ref('')
-  function handleSelectionChange() {
-    console.log(1)
-  }
 </script>

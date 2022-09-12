@@ -5,6 +5,7 @@ import { User } from '@/views/set/userManage/type'
 enum Api {
   SetUser = '/set-user',
   GetUserList = '/get-user-list',
+  SearchUser = '/search-user',
 }
 
 const userManageApi = {
@@ -12,7 +13,13 @@ const userManageApi = {
     return defHttp.post({ url: Api.SetUser, data: params })
   },
   getUserList: (params: Omit<Page, 'total'>) => {
-    return defHttp.get({ url: Api.GetUserList, params }) as Promise<User[]>
+    return defHttp.get({ url: Api.GetUserList, params }) as Promise<{
+      data: User[]
+      page: Page
+    }>
+  },
+  searchUser: (params: { userName: string }) => {
+    return defHttp.get({ url: Api.SearchUser, params }) as Promise<User[]>
   },
 }
 
