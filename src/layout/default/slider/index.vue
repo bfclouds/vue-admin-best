@@ -1,7 +1,7 @@
 <template>
   <el-aside
     :width="getMixSideWidth"
-    class="relative overflow-hidden best-slider-bar-container no-scrollbar"
+    class="overflow-hidden best-slider-bar-container no-scrollbar h-full z-40 bg-white"
   >
     <div class="header-logo-wrapper">
       <a href="/" class="inline-flex items-center w-full">

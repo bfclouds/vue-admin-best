@@ -8,14 +8,14 @@
         </el-button>
       </el-col>
       <el-col :span="12">
-        <el-row justify="end">
-          <el-col :span="8">
-            <el-input v-model="searchValue" placeholder="请输入用户名" />
-          </el-col>
-          <el-col :span="4">
-            <el-button type="primary" class="ml-3">搜索</el-button>
-          </el-col>
-        </el-row>
+        <div class="flex justify-end">
+          <el-input
+            class="max-w-xs"
+            v-model="searchValue"
+            placeholder="请输入用户名"
+          />
+          <el-button type="primary" class="ml-3">搜索</el-button>
+        </div>
       </el-col>
     </el-row>
 
@@ -91,11 +91,9 @@
       </el-table-column>
     </el-table>
 
-    <el-row justify="center" class="mt-8">
-      <el-col :span="12">
-        <el-pagination background layout="prev, pager, next" :total="1000" />
-      </el-col>
-    </el-row>
+    <div class="flex justify-center mt-8">
+      <el-pagination background layout="prev, pager, next" :total="1000" />
+    </div>
 
     <el-dialog v-model="formVisible" title="添加" width="480px">
       <el-form :model="userForm" label-width="auto">
