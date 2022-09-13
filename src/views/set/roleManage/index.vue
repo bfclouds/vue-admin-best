@@ -9,7 +9,9 @@
         <el-row justify="end">
           <el-col :span="8">
             <el-input
-              v-model="searchValue"
+              v-model="searchKey"
+              @input="onSearchInput"
+              @keyup.enter="onSearch"
               placeholder="请输入角色"
             />
           </el-col>
@@ -23,7 +25,7 @@
     <el-table
       class="mt-10"
       ref="multipleTableRef"
-      :data="tableData"
+      :data="showTableData"
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >
@@ -33,11 +35,14 @@
       </el-table-column>
       <el-table-column property="name" label="id" width="120" />
       <el-table-column property="address" label="角色码" />
-      <el-table-column property="address" label="按钮权限" show-overflow-tooltip />
+      <el-table-column
+        property="address"
+        label="按钮权限"
+        show-overflow-tooltip
+      />
       <el-table-column label="Operations" width="120">
         <template #default>
-          <el-button link type="primary" size="small">编辑</el-button
-          >
+          <el-button link type="primary" size="small">编辑</el-button>
           <el-button link type="primary" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -51,48 +56,26 @@
   </ContentWrapper>
 </template>
 <script setup lang="ts">
-import ContentWrapper from '@/components/contentWrapper/index.vue';
-import { ref } from 'vue';
+  import api from '@/api'
+  import ContentWrapper from '@/components/contentWrapper/index.vue'
+  import { useSearch, useTable } from '@/hooks/web/useTable'
+  import { ref, computed } from 'vue'
+  import { Role } from './type'
 
-const searchValue = ref('');
-function handleSelectionChange() {
-  console.log(1);
-}
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-08',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-06',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-07',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
+  function handleSelectionChange() {
+    console.log(1)
+  }
+
+  const { tableData, loading } = useTable<Role>(api.getRoleList)
+
+  const { searchKey, searchMode, searchTableData, onSearchInput, onSearch } =
+    useSearch<Role>((key: string) => {
+      return api.searchRole({
+        roleName: key,
+      })
+    })
+
+  const showTableData = computed(() =>
+    searchMode.value ? searchTableData : tableData
+  )
 </script>

@@ -1,4 +1,4 @@
-import { computed, onMounted, reactive, ref, unref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import {
   GDialogType,
@@ -73,6 +73,7 @@ export function useTableData() {
   function onSearch() {
     searchMode.value = true
     loading.value = true
+
     api
       .searchUser({
         userName: searchValue.value,
