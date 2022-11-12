@@ -1,4 +1,4 @@
-# vue-admin-best
+# vue-admin-template-webpack
 
 ## Project setup
 ```
